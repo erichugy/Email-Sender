@@ -1,3 +1,4 @@
+from typing import List
 class Email:
     """Representation of an email.
 
@@ -17,7 +18,9 @@ class Email:
                 html: bool = True, 
                 signature: str = None, 
                 bcc: bool = True, 
-                send: bool = False) -> None:
+                send: bool = False,
+                attachments :List[str] = [""]
+                ) -> None:
         """Initializes an Email instance with recipients, a subject line, a message body, and optional arguments for the format of the email, a signature, and whether to send the email or save it as a draft.
 
         Args:
@@ -28,6 +31,7 @@ class Email:
             signature: The HTML of the signature to be added to the email (default is None).
             bcc: Whether to use the BCC field or the To field for the recipients (default is True).
             send: Whether to send the email immediately or save it as a draft (default is False).
+            attachments : Attachments to add. Need to add the whole path for each attachment as elements of the list
 
         Returns:
             None
@@ -38,6 +42,12 @@ class Email:
         self.html = html
         self.signature = "<p></p>" * 2 + signature # <p></p> is to add newline
         self.bcc = bcc
+
+        #Attachements Section
+        if not attachments or not (len(attachments) >= 1 and not attachments[0]):
+            for i in attachments:
+                self.mail.Attachments.Add(i)
+
 
         # Main Section
         # Getter Setter Variables

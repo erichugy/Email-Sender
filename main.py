@@ -1,12 +1,13 @@
 from emailClass import Email
 from getRecipients import recipients
 from wordToHtml import word_to_html
-from fileMaster import extract_filename, cwd, move_files_to_subdirectory
+from fileMaster import extract_filename, cwd, move_files_to_subdirectory, get_file_paths
 
 # Global Variables
 ## Inputs
-WORD_PATH = r"C:\Users\Eric Huang\Desktop\Coding\Email Sender\msg_2023-01-09.docx"
-SUBJECT = "Monthly Mail: The First of Many"
+WORD_PATH = r"C:\Users\Eric Huang\Desktop\Coding\Email Sender\Old-Emails\2023-02-07\msg_2023-02-07.docx"
+SUBJECT = "Checking-in with Eric: Event-full"
+PATH_TO_ATTACHMENTS = r"C:\Users\Eric Huang\Desktop\Coding\Email Sender\Old-Emails\2023-02-07\attachments"
 
 
 
@@ -41,13 +42,17 @@ while attempts < 10:
 with open(SIGNATURE_PATH, "r") as file:
     signature = file.read()
 
+
+#----------------------------------
+# Step 3: Create email object
 email = Email(
     recipients = recipients,
     subject = SUBJECT,
     msg = html,
-    signature = signature
-)
+    signature = signature,
+    attachments = get_file_paths(PATH_TO_ATTACHMENTS)
+    )
 
-
+#move completed htm file (email) into the same folder as the word doc
 move_files_to_subdirectory([f"{FILENAME}.htm"])
 print("Done")

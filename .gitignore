@@ -1,3 +1,7 @@
 bot-credentials.json
 filesUsedForTesting
-Signatures
+Signatures/*
+Old-Emails/*/attachments/*
+test.py
+
+

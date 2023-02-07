@@ -86,3 +86,24 @@ def delete_folder(folder: str) -> None:
     folder_path = os.path.join(cwd, folder)  # Construct the full path of the folder
     if os.path.isdir(folder_path):  # Check if the item is a folder
         shutil.rmtree(folder_path)
+
+
+
+def get_file_paths(folder_path:str):
+    """
+    Returns a list of paths to all the files in a folder.
+
+    Parameters:
+    folder_path (str): Path to the folder.
+
+    Returns:
+    list of str: List of paths to all the files in the folder.
+    """
+    if not folder_path:
+        return [""]
+    file_paths = []
+    for root, dirs, files in os.walk(folder_path):
+        for file in files:
+            file_path = os.path.join(root, file)
+            file_paths.append(file_path)
+    return file_paths
